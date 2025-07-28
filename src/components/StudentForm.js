@@ -8,25 +8,13 @@ export default function StudentForm({ name, email, onNameChange, onEmailChange, 
         <div style={{ marginBottom: 8 }}>
           <label>
             Name:{" "}
-            <input
-              type="text"
-              value={name}
-              onChange={onNameChange}
-              placeholder="Enter name"
-              required
-            />
+            <input type="text" value={name} onChange={onNameChange} placeholder="Enter name" required/>
           </label>
         </div>
         <div style={{ marginBottom: 8 }}>
           <label>
             Email:{" "}
-            <input
-              type="email"
-              value={email}
-              onChange={onEmailChange}
-              placeholder="Enter email"
-              required
-            />
+            <input type="email" value={email} onChange={onEmailChange} placeholder="Enter email" required/>
           </label>
         </div>
         <button type="submit">{isEditing ? "Update" : "Add"}</button>{" "}

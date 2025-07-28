@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 
-const GRAPHQL_ENDPOINT = "http://localhost:8080/graphql";
+const API = "http://localhost:8080/graphql";
 
 export function useStudents() {
   const [students, setStudents] = useState([]);
@@ -21,7 +21,7 @@ export function useStudents() {
     `;
 
     try {
-      const res = await fetch(GRAPHQL_ENDPOINT, {
+      const res = await fetch(API, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ query }),
@@ -54,7 +54,7 @@ export function useStudents() {
         }
       }
     `;
-    await fetch(GRAPHQL_ENDPOINT, {
+    await fetch(API, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ query: mutation }),
@@ -72,7 +72,7 @@ export function useStudents() {
         }
       }
     `;
-    await fetch(GRAPHQL_ENDPOINT, {
+    await fetch(API, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ query: mutation }),
@@ -86,7 +86,7 @@ export function useStudents() {
         deleteStudent(id: ${id})
       }
     `;
-    await fetch(GRAPHQL_ENDPOINT, {
+    await fetch(API, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ query: mutation }),
@@ -94,13 +94,5 @@ export function useStudents() {
     await fetchStudents();
   };
 
-  return {
-    students,
-    loading,
-    error,
-    createStudent,
-    updateStudent,
-    deleteStudent,
-    fetchStudents,
-  };
+  return {students,loading,error,createStudent,updateStudent,deleteStudent,fetchStudents,};
 }

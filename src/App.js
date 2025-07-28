@@ -4,14 +4,7 @@ import StudentList from "./components/StudentList";
 import StudentForm from "./components/StudentForm";
 
 function App() {
-  const {
-    students,
-    loading,
-    error,
-    createStudent,
-    updateStudent,
-    deleteStudent,
-  } = useStudents();
+  const {students,error,createStudent,updateStudent,deleteStudent} = useStudents();
 
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -58,17 +51,9 @@ function App() {
     <div style={{ maxWidth: 600, margin: "auto", padding: 20 }}>
       <h1>Students</h1>
 
-      <StudentList
-        students={students}
-        loading={loading}
-        error={error}
-        onEdit={handleEdit}
-        onDelete={handleDelete}
-      />
+      <StudentList students={students} error={error} onEdit={handleEdit} onDelete={handleDelete}/>
 
-      <StudentForm
-        name={name}
-        email={email}
+      <StudentForm name={name} email={email}
         onNameChange={(e) => setName(e.target.value)}
         onEmailChange={(e) => setEmail(e.target.value)}
         onSubmit={handleSubmit}
