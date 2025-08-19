@@ -4,11 +4,12 @@ import StudentList from "./components/StudentList";
 import StudentForm from "./components/StudentForm";
 
 function App() {
-  const {students,error,createStudent,updateStudent,deleteStudent} = useStudents();
+  const {students,error,createStudent,updateStudent,deleteStudent,searchStudents} = useStudents();
 
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [editId, setEditId] = useState(null);
+  const [searchKeyword, setSearchKeyword] = useState("");
 
   const handleEdit = (student) => {
     setEditId(student.id);
@@ -47,10 +48,25 @@ function App() {
     }
   };
 
+  const handleSearchChange = async (e) => {
+    const value = e.target.value;
+    setSearchKeyword(value);
+    await searchStudents(value);
+  };
+
+
   return (
     <div style={{ maxWidth: 600, margin: "auto", padding: 20 }}>
       <h1>Students</h1>
 
+      <input
+        type="text"
+        placeholder="Search students by name or email"
+        value={searchKeyword}
+        onChange={handleSearchChange}
+        style={{ width: "100%", padding: 8, marginBottom: 20 }}
+      />
+      
       <StudentList students={students} error={error} onEdit={handleEdit} onDelete={handleDelete}/>
 
       <StudentForm name={name} email={email}

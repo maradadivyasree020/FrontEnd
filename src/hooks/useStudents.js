@@ -94,5 +94,42 @@ export function useStudents() {
     await fetchStudents();
   };
 
-  return {students,loading,error,createStudent,updateStudent,deleteStudent,fetchStudents,};
+  const searchStudents = async (keyword) => {
+    console.log(keyword)
+  if (!keyword) {
+    await fetchStudents();
+    return;
+  }
+  setLoading(true);
+  setError(null);
+  const query = `
+    query {
+      searchStudents(keyword: "${keyword}") {
+        id
+        name
+        email
+      }
+    }
+  `;
+  try {
+    const res = await fetch(API, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ query }),
+    });
+    const json = await res.json();
+    if (json.errors) {
+      setError(json.errors[0].message);
+    } else {
+      setStudents(json.data.searchStudents);
+    }
+  } catch (err) {
+    setError(err.message);
+  } finally {
+    setLoading(false);
+  }
+};
+
+
+  return {students,loading,error,createStudent,updateStudent,deleteStudent,fetchStudents,searchStudents};
 }
